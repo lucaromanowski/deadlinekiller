@@ -130,3 +130,8 @@ STATIC_URL = '/static/'
 LOGIN_REDIRECT_URL = reverse_lazy('account:test_home')
 LOGIN_URL = reverse_lazy('account:login')
 LOGOUT_URL = reverse_lazy('account:logout')
+
+
+# Email for development 
+
+EMAIL_BACKEND = 'django_core_mail.backends.console.EmailBackend'
