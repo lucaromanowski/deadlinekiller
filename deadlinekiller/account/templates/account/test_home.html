@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+{% block title %}Test homepage | accounts{% endblock %}
+
+
+{% block content %}
+
+	<h1>test homepage | accounts app</h1>
+
+ 	<h2>Available CRUD urls in account app: </h2>
+ 	<p>User registration: <a href="{% url 'account:register' %}">register</a></p>
+ 	<p>User login: <a href="{% url 'account:login' %}">login</a></p>
+ 	<p>User logout: <a href="{% url 'account:logout' %}">logout</a></p>
+
+ 	<p>There are other urls as well (changing password etc..) </p>
+
+
+{% endblock %}

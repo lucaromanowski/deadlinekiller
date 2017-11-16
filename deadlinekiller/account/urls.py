@@ -27,6 +27,7 @@ urlpatterns = [
 
     # Register user
     url(r'^register/$', views.register, name='register'),
+    url(r'^edit/$', views.edit, name='edit'),
 
 
 
