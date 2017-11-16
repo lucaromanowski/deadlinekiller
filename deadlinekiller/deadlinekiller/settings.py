@@ -11,6 +11,8 @@ https://docs.djangoproject.com/en/1.11/ref/settings/
 """
 
 import os
+
+from django.urls import reverse_lazy
 from .local_settings import *
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
@@ -31,12 +33,15 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'account',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    #'account',
+    'deadlines',
 ]
 
 MIDDLEWARE = [
@@ -118,3 +123,20 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.11/howto/static-files/
 
 STATIC_URL = '/static/'
+
+
+# Auth Module
+
+LOGIN_REDIRECT_URL = reverse_lazy('account:test_home')
+LOGIN_URL = reverse_lazy('account:login')
+LOGOUT_URL = reverse_lazy('account:logout')
+
+
+# Email for development 
+
+EMAIL_BACKEND = 'django_core_mail.backends.console.EmailBackend'
+
+# Media
+
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
