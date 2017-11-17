@@ -37,6 +37,6 @@ class Deadline(models.Model):
 
 
 	def __str__(self):
-		return '{} created by {}'.format(self.title, self.author)
+		return '{} created by {}'.format(self.name, self.author)
 
 
