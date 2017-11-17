@@ -1,6 +1,8 @@
 from django.conf.urls import url
 
+from . import views
+
 
 urlpatterns = [
-    #url(r'^deadlines/', include('deadlines.urls', namespace='deadlines')),
+    url(r'^$', views.deadline_list, name='deadline_list'),
 ]

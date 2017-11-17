@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+
+{% block title %}Deadline list{% endblock %}
+
+
+
+{% block content %}
+
+	<h1>All your deadlines</h1>
+	<ul>
+		{% for deadline in deadlines %}
+			<li><a href="#">{{ deadline.name }}</a> | created: {{ deadline.created }}</li>
+		{% endfor %}
+	</ul>
+{% endblock %}
