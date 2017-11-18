@@ -29,7 +29,7 @@ class Deadline(models.Model):
 	slug = models.SlugField(max_length=80)
 	description = models.CharField(max_length=200)
 	project = models.ForeignKey(Project, related_name='deadlines', blank=True, null=True)
-	author = models.ForeignKey(User, related_name='deadlines')
+	author = models.ForeignKey(User, related_name='deadlines', blank=True, null=True)
 	deadline_date = models.DateTimeField()
 	created = models.DateTimeField(auto_now_add=True)
 	updated = models.DateTimeField(auto_now=True)
