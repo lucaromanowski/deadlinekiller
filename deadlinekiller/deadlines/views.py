@@ -1,6 +1,7 @@
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
-from django.shortcuts import render
+from django.shortcuts import render, redirect
+from django.utils.text import slugify
 
 from .forms import DeadlineForm
 from .models import Deadline
@@ -19,8 +20,12 @@ def deadline_create(request):
 		
 		if deadline_form.is_valid():
 			new_form = deadline_form.save(commit=False)
+			# Assigne logged in user to a deadline (as an author)
 			new_form.author = request.user
+			# Create a slug from name field
+			new_form.slug = slugify(new_form.name)
 			new_form.save()
+			return redirect('deadlines:deadline_list')
 
 	else:
 		deadline_form = DeadlineForm()
