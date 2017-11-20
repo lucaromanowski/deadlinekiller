@@ -16,14 +16,11 @@ def deadline_list(request):
 def deadline_create(request):
 	if request.method == 'POST':
 		deadline_form = DeadlineForm(request.POST)
-		current_user = User.objects.get(username=request.user)
-		deadline_form.author = current_user
-		#deadline_form.author = request.user
-		#deadline_form.clean_author()
+		
 		if deadline_form.is_valid():
-			deadline_form.save(commit=False)
-			
-			deadline_form.save()
+			new_form = deadline_form.save(commit=False)
+			new_form.author = request.user
+			new_form.save()
 
 	else:
 		deadline_form = DeadlineForm()
