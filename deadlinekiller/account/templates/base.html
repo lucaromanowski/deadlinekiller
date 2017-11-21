@@ -12,6 +12,17 @@
 	<link rel="stylesheet" type="text/css" href="{% static "account/base.css" %}">
 </head>
 <body>
+	<nav>
+		<ul>
+			{% if request.user.is_authenticated %}
+				<li>You are logged in as: {{ request.user.username }} | <a href="{% url 'account:logout' %}">logout</a>.</li>
+				<li><a href="{% url 'deadlines:deadline_list' %}">Deadlines</a></li>
+			{% else %}
+				<li><a href="{% url 'account:login' %}">Login</a></li>
+				<li><a href="{% url 'account:register' %}">Sign up</a></li>
+			{% endif %}
+		</ul>
+	</nav>
 
 	<h1>DEADLINEKILLER | base html page</h1>
 

@@ -10,7 +10,7 @@
 	<h1>All your deadlines</h1>
 	<ul>
 		{% for deadline in deadlines %}
-			<li><a href="#">{{ deadline.name }}</a> | created: {{ deadline.created }}</li>
+			<li><a href="{{ deadline.get_absolute_url }}">{{ deadline.name }}</a> | created: {{ deadline.created }}</li>
 		{% endfor %}
 	</ul>
 	<h2>New deadline?</h2>

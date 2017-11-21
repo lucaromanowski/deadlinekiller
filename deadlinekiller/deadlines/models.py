@@ -1,6 +1,7 @@
 from django.contrib.auth.models import User
 from django.conf import settings
 from django.db import models
+from django.urls import reverse
 
 
 
@@ -39,5 +40,8 @@ class Deadline(models.Model):
 
 	def __str__(self):
 		return '{} created by {}'.format(self.name, self.author)
+
+	def get_absolute_url(self):
+		return reverse('deadlines:deadline_detail', args=[self.pk, self.slug])
 
 
