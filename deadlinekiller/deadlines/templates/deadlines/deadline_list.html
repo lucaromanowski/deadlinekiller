@@ -6,7 +6,7 @@
 
 
 {% block content %}
-
+	<p><small>You have {{ deadlines_total }} active deadlines now.</small></p>
 	<h1>All your deadlines</h1>
 	<ul>
 		{% for deadline in deadlines %}
@@ -15,4 +15,7 @@
 	</ul>
 	<h2>New deadline?</h2>
 	<p><a href="{% url 'deadlines:deadline_create' %}">Create</a> new deadline.</p>
+
+	<!-- pagination -->
+	{% include 'pagination.html' with page=deadlines %}
 {% endblock %}

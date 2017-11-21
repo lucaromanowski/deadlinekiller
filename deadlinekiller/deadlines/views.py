@@ -1,5 +1,6 @@
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.shortcuts import render, redirect, get_object_or_404
 from django.utils.text import slugify
 
@@ -9,8 +10,21 @@ from .models import Deadline
 
 @login_required
 def deadline_list(request):
-	deadlines = Deadline.objects.filter(author=request.user)
-	return render(request, 'deadlines/deadline_list.html', { 'deadlines' : deadlines })
+	deadline_list = Deadline.objects.filter(author=request.user)
+	deadlines_total = deadline_list.count()
+	paginator = Paginator(deadline_list, 10) 
+	page = request.GET.get('page')
+	try:
+		deadlines = paginator.page(page)
+	except PageNotAnInteger:
+        # If page is not an integer, deliver first page.
+		deadlines = paginator.page(1)
+	except EmptyPage:
+        # If page is out of range (e.g. 9999), deliver last page of results.
+		deadlines = paginator.page(paginator.num_pages)
+	return render(request, 'deadlines/deadline_list.html', { 'deadlines' : deadlines,
+															 'deadlines_total' : deadlines_total,
+															 'page' : page })
 
 
 @login_required
@@ -51,3 +65,8 @@ def deadline_update(request, pk, slug):
 
 	return render(request, 'deadlines/deadline_update.html', {'deadline' : deadline,
 															  'deadline_form' : deadline_form})
+
+
+@login_required
+def deadline_delete(request, pk, slug):
+	pass
