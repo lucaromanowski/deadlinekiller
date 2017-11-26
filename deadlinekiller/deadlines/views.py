@@ -1,3 +1,4 @@
+from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
@@ -45,6 +46,7 @@ def deadline_create(request):
 			# Create a slug from name field
 			new_form.slug = slugify(new_form.name)
 			new_form.save()
+			messages.success(request, 'New deadline was created. Tick tock, tick tock...')
 			return redirect('deadlines:deadline_list')
 
 	else:
@@ -59,6 +61,7 @@ def deadline_update(request, pk, slug):
 		deadline_form = DeadlineForm(instance=deadline, data=request.POST)
 		if deadline_form.is_valid():
 			deadline_form.save()
+			messages.success(request, '{} deadline was updated successfully.'.format(deadline.name))
 			return redirect(deadline)
 	else:
 		deadline_form = DeadlineForm(instance=deadline)
@@ -71,5 +74,6 @@ def deadline_update(request, pk, slug):
 def deadline_delete(request, pk, slug):
 	deadline = get_object_or_404(Deadline, pk=pk, slug=slug)
 	deadline.delete()
+	messages.success(request, '{} deadline was deleted successfully.'.format(deadline.name))
 	return redirect('deadlines:deadline_list')
 	
