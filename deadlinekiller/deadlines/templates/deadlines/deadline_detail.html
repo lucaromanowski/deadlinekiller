@@ -17,8 +17,8 @@
 
 
 
-
-	<p><a href="{% url 'deadlines:deadline_update' deadline.pk deadline.slug %}">Update</a> this deadline.</p>
-
+	<br/>
+	<p><a href="{% url 'deadlines:deadline_update' deadline.pk deadline.slug %}">Edit</a> this deadline.</p>
+	<p><a href="{% url 'deadlines:deadline_delete' deadline.pk deadline.slug %}">Delete</a> this deadline.</p>
 	<p>All deadlines <a href="{% url 'deadlines:deadline_list' %}">here</a>.</p>
 {% endblock %}

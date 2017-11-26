@@ -69,4 +69,7 @@ def deadline_update(request, pk, slug):
 
 @login_required
 def deadline_delete(request, pk, slug):
-	pass
+	deadline = get_object_or_404(Deadline, pk=pk, slug=slug)
+	deadline.delete()
+	return redirect('deadlines:deadline_list')
+	

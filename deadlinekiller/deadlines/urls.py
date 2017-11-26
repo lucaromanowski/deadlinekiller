@@ -17,6 +17,9 @@ urlpatterns = [
 
     # Update
     url(r'^deadline-update/(?P<pk>\d+)/(?P<slug>[-\w]+)/$', views.deadline_update, name='deadline_update'),
+    
+    # Delete
+    url(r'^deadline-delete/(?P<pk>\d+)/(?P<slug>[-\w]+)/$', views.deadline_delete, name='deadline_delete'),
 
    
 ]
