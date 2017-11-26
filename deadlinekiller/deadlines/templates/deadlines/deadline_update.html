@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+{% block title %}Update deadline{% endblock %}
+
+{% block content %}
+	
+	<h1>Update deadline</h1>
+	<p>Fill the form below to update deadline:  {{ deadline.name }}.</p>
+	
+	<form  action="" method="post">
+		{{ deadline_form.as_p }}
+		{% csrf_token %}
+		<p><input type="submit" value="Update deadline"></p>
+	</form>
+
+{% endblock %}

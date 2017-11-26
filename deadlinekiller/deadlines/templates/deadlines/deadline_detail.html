@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+
+
+{% block title %}{{ deadline.name }}{% endblock %}
+
+
+
+{% block content %}
+
+	<h1>Deadline: {{ deadline.name }}</h1>
+	<p>Priority: {{ deadline.priority }}</p>
+	<p>{{ deadline.description }}</p>
+	<p>Created: {{ deadline.created }}</p>
+	<p>Updated: {{ deadline.updated }}</p>
+
+
+
+
+
+	<br/>
+	<p><a href="{% url 'deadlines:deadline_update' deadline.pk deadline.slug %}">Edit</a> this deadline.</p>
+	<p><a href="{% url 'deadlines:deadline_delete' deadline.pk deadline.slug %}">Delete</a> this deadline.</p>
+	<p>All deadlines <a href="{% url 'deadlines:deadline_list' %}">here</a>.</p>
+{% endblock %}
