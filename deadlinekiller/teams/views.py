@@ -1,3 +1,6 @@
+from django.generic.views import ListView
 from django.shortcuts import render
 
-# link user with a team
+
+class TeamList(ListView):
+	pass
