@@ -7,6 +7,9 @@ from .models import Team
 
 class TeamList(LoginRequiredMixin, ListView):
 	model = Team
-	queryset = Team.objects.all()
+	#queryset = Team.objects.all()
 	context_object_name = 'teams'
 	template_name = 'teams/team_list.html'
+
+	def get_queryset(self):
+		return Team.objects.filter(profile=self.request.user.profile) 
