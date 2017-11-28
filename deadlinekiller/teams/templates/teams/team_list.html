@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+
+{% block title %}Deadlines Teams{% endblock %}
+
+
+{% block content %}
+	<h1>Teams list</h1>
+	<p>All teams:</p>
+	<ul>
+	{% for team in teams %}
+		<li>{{ team.name }}</li>
+	{% endfor %}
+	</ul>
+{% endblock %}
