@@ -42,6 +42,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'deadlines',
     'teams',
+    # third party
+    'crispy_forms',
 ]
 
 MIDDLEWARE = [
@@ -140,3 +142,6 @@ EMAIL_BACKEND = 'django_core_mail.backends.console.EmailBackend'
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
+
+# Crispy forms
+CRISPY_TEMPLATE_PACK = 'bootstrap4'
