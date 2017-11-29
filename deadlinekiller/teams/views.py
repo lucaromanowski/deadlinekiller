@@ -21,5 +21,5 @@ class TeamCreateView(LoginRequiredMixin, CreateView):
 	template_name = 'teams/team_create.html'
 
 
-	def form_valid(self, form):
-		return super(TeamCreateView, self).form_valid
+	#def form_valid(self, form):
+	#	return super(TeamCreateView, self).form_valid
