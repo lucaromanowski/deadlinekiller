@@ -21,5 +21,18 @@ class TeamCreateView(LoginRequiredMixin, CreateView):
 	template_name = 'teams/team_create.html'
 
 
-	#def form_valid(self, form):
-	#	return super(TeamCreateView, self).form_valid
+	#def post(self, request, *args, **kwargs):
+	#	print('post ivoked')
+	#	super(TeamCreateView, self).post()
+	#	pass
+
+	def form_valid(self, form):
+		print('form valid ivoked')
+		self.object = form.save(commit=False)
+		print('Self.object: ', str(self.object))
+		
+		self.object.user = self.request.user.profile
+		print('Self object user: ', str(self.object.user))
+		#form.user = self.request.user.profile
+		self.object.save()
+		return super(TeamCreateView, self).form_valid(form)
