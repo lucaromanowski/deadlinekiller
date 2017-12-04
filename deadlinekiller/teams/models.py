@@ -9,16 +9,11 @@ class Team(models.Model):
 	created = models.DateTimeField(auto_now_add=True)
 	updated = models.DateTimeField(auto_now=True)
 	creator = models.ForeignKey(settings.AUTH_USER_MODEL, related_name='teams', blank=True, null=True)
-	
-
-
-
-
-	#user = models.ManyToManyField() 
 
 
 	def __str__(self):
 		return self.name
 
+
 	def get_absolute_url(self):
-		return reverse('teams:team_list')
+		return reverse('teams:team_detail', args=[self.pk, self.slug])

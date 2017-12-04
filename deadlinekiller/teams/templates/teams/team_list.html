@@ -10,7 +10,7 @@
 		<p>Your teams:</p>
 		<ul>
 	{% for team in teams %}
-		<li>{{ team.name }}</li>
+		<li><a href="{% url 'teams:team_detail' team.pk team.slug %}">{{ team.name }}</a></li>
 	{% endfor %}
 	</ul>
 	<p><a href="{% url 'teams:team_create' %}">Create</a> new team.</p>

@@ -1,7 +1,7 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import render
 from django.utils.text import slugify
-from django.views.generic import ListView, CreateView
+from django.views.generic import ListView, CreateView, DetailView
 
 from .forms import TeamCreationForm
 from .models import Team
@@ -28,3 +28,8 @@ class TeamCreateView(LoginRequiredMixin, CreateView):
 		# Setting up slug field
 		form.instance.slug = slugify(form.instance.name)
 		return super(TeamCreateView, self).form_valid(form)
+
+
+class TeamDetailView(LoginRequiredMixin, DetailView):
+	model = Team
+	template_name = 'teams/team_detail.html'
