@@ -12,8 +12,9 @@
 	{% for team in teams %}
 		<li>{{ team.name }}</li>
 	{% endfor %}
-	<p><a href="{% url 'teams:team_create' %}">Create</a> new team.</p>
 	</ul>
+	<p><a href="{% url 'teams:team_create' %}">Create</a> new team.</p>
+	
 	{% else %}
 		<h2>Need a team? Create one!</h2>
 		<p>You are not a member of any team. <a href="#">Join</a> the existing one or <a href="{% url 'teams:team_create' %}">create</a> yours.</p>
