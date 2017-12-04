@@ -7,4 +7,7 @@
 	<h2>Team: {{ team.name }}</h2>
 	<p><small>Boss (creator): {{ team.creator }}</small></p>
 	<h3>Members:</h3>
+	<hr/>
+	<p>Back to <a href="{% url 'teams:team_list' %}">teams</a>.</p>
+
 {% endblock %}
