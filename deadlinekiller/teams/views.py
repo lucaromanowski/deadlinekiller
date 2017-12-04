@@ -1,5 +1,6 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import render
+from django.utils.text import slugify
 from django.views.generic import ListView, CreateView
 
 from .forms import TeamCreationForm
@@ -22,16 +23,8 @@ class TeamCreateView(LoginRequiredMixin, CreateView):
 
 
 	def form_valid(self, form):
-		print('form instance: ', str(form.instance))
+		# Setting up loggedin user as an team creator
 		form.instance.creator = self.request.user
-
-
-		#print('form valid ivoked')
-		#self.object = form.save(commit=False)
-		#print('Self.object: ', str(self.object))
-		
-		#self.object.user = self.request.user.profile
-		#print('Self object user: ', str(self.object.user))
-		#form.user = self.request.user.profile
-		#self.object.save()
+		# Setting up slug field
+		form.instance.slug = slugify(form.instance.name)
 		return super(TeamCreateView, self).form_valid(form)
