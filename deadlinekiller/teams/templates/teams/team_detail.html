@@ -9,5 +9,7 @@
 	<h3>Members:</h3>
 	<hr/>
 	<p>Back to <a href="{% url 'teams:team_list' %}">teams</a>.</p>
+	<hr/>
+	<p><a href="{% url 'teams:team_delete' team.pk team.slug %}">Delete</a> this Team.</p>
 
 {% endblock %}

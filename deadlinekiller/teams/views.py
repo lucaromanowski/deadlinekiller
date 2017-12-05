@@ -1,7 +1,8 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import render
+from django.urls import reverse_lazy
 from django.utils.text import slugify
-from django.views.generic import ListView, CreateView, DetailView
+from django.views.generic import ListView, CreateView, DetailView, DeleteView
 
 from .forms import TeamCreationForm
 from .models import Team
@@ -33,3 +34,9 @@ class TeamCreateView(LoginRequiredMixin, CreateView):
 class TeamDetailView(LoginRequiredMixin, DetailView):
 	model = Team
 	template_name = 'teams/team_detail.html'
+
+
+class TeamDeleteView(LoginRequiredMixin, DeleteView):
+	model = Team
+	template_name = 'teams/team_delete.html'
+	success_url = reverse_lazy('teams:team_list')
