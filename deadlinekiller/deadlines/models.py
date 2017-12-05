@@ -8,6 +8,8 @@ from django.urls import reverse
 
 
 
+
+
 class Project(models.Model):
 	pass
 

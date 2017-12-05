@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load crispy_forms_tags %}
 
 {% block title %}Create deadline{% endblock %}
 
@@ -8,7 +9,7 @@
 	<p>Fill the form below to create deadline.</p>
 	
 	<form  action="" method="post">
-		{{ deadline_form.as_p }}
+		{{ deadline_form|crispy }}
 		{% csrf_token %}
 		<p><input type="submit" value="Create deadline"></p>
 	</form>
