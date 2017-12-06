@@ -5,25 +5,220 @@
 <html>
 <head>
 	<title>{% block title %}{% endblock %}</title>
+
 	<!-- Bootstrap -->
+	 <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Bootstrap CSS -->
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
 	
 	<!-- Local css -->
 	<link rel="stylesheet" type="text/css" href="{% static "account/base.css" %}">
 </head>
 <body>
-	<nav>
-		<ul>
-			{% if request.user.is_authenticated %}
-				<li>You are logged in as: {{ request.user.username }} | <a href="{% url 'account:logout' %}">logout</a>.</li>
-				<li><a href="{% url 'deadlines:deadline_list' %}">Deadlines</a></li>
-				<li><a href="{% url 'teams:team_list' %}">Teams</a></li>
-			{% else %}
-				<li><a href="{% url 'account:login' %}">Login</a></li>
-				<li><a href="{% url 'account:register' %}">Sign up</a></li>
-			{% endif %}
-		</ul>
-	</nav>
+
+
+<!-- BOOSTSTRAP TESTS -->
+
+	<div class="container">
+		<div class="row">
+			<div class="col-12">
+				<div class="alert alert-primary" role="alert">
+	  				nav
+				</div>
+			</div>
+			
+		</div>
+		<div class="row no-gutters">
+			<div class="col-2">
+				<div class="alert alert-primary" role="alert">
+	  				This is a primary alert—check it out!
+				</div>
+			</div>
+			<div class="col-8">
+				<div class="alert alert-primary" role="alert" style="min-height: 800px">
+	  				This is a primary alert—check it out!
+				</div>
+			</div>
+			<div class="col-2">
+				<div class="alert alert-primary" role="alert">
+	  				This is a primary alert—check it out!
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+
+	<div class='container'>
+		
+
+		<div class="row">
+			<div class="col-1">
+				<div class="alert alert-primary" role="alert">
+	  				This is a primary alert—check it out!
+				</div>					
+			</div>
+			<div class="col-1">
+				<div class="alert alert-secondary" role="alert">
+	  				This is a primary alert—check it out!
+				</div>					
+			</div>
+			<div class="col-1">
+				<div class="alert alert-primary" role="alert">
+	  				This is a primary alert—check it out!
+				</div>					
+			</div>
+			<div class="col-1">
+				<div class="alert alert-secondary" role="alert">
+	  				This is a primary alert—check it out!
+				</div>					
+			</div>
+			<div class="col-1">
+				<div class="alert alert-primary" role="alert">
+	  				This is a primary alert—check it out!
+				</div>					
+			</div>
+			<div class="col-1">
+				<div class="alert alert-secondary" role="alert">
+	  				This is a primary alert—check it out!
+				</div>					
+			</div>
+			<div class="col-1">
+				<div class="alert alert-primary" role="alert">
+	  				This is a primary alert—check it out!
+				</div>					
+			</div>
+			<div class="col-1">
+				<div class="alert alert-secondary" role="alert">
+	  				This is a primary alert—check it out!
+				</div>					
+			</div>
+			<div class="col-1">
+				<div class="alert alert-primary" role="alert">
+	  				This is a primary alert—check it out!
+				</div>					
+			</div>
+			<div class="col-1">
+				<div class="alert alert-secondary" role="alert">
+	  				This is a primary alert—check it out!
+				</div>					
+			</div>
+			<div class="col-1">
+				<div class="alert alert-primary" role="alert">
+	  				This is a primary alert—check it out!
+				</div>					
+			</div>
+			<div class="col-1">
+				<div class="alert alert-secondary" role="alert">
+	  				This is a primary alert—check it out!
+				</div>					
+			</div>
+
+		</div>
+	
+
+	</div>
+
+
+	<div class='container-fluid'>
+		
+
+		<div class="row">
+			<div class="col-1">
+				<div class="alert alert-primary" role="alert">
+	  				This is a primary alert—check it out!
+				</div>					
+			</div>
+			<div class="col-1">
+				<div class="alert alert-secondary" role="alert">
+	  				This is a primary alert—check it out!
+				</div>					
+			</div>
+			<div class="col-1">
+				<div class="alert alert-primary" role="alert">
+	  				This is a primary alert—check it out!
+				</div>					
+			</div>
+			<div class="col-1">
+				<div class="alert alert-secondary" role="alert">
+	  				This is a primary alert—check it out!
+				</div>					
+			</div>
+			<div class="col-1">
+				<div class="alert alert-primary" role="alert">
+	  				This is a primary alert—check it out!
+				</div>					
+			</div>
+			<div class="col-1">
+				<div class="alert alert-secondary" role="alert">
+	  				This is a primary alert—check it out!
+				</div>					
+			</div>
+			<div class="col-1">
+				<div class="alert alert-primary" role="alert">
+	  				This is a primary alert—check it out!
+				</div>					
+			</div>
+			<div class="col-1">
+				<div class="alert alert-secondary" role="alert">
+	  				This is a primary alert—check it out!
+				</div>					
+			</div>
+			<div class="col-1">
+				<div class="alert alert-primary" role="alert">
+	  				This is a primary alert—check it out!
+				</div>					
+			</div>
+			<div class="col-1">
+				<div class="alert alert-secondary" role="alert">
+	  				This is a primary alert—check it out!
+				</div>					
+			</div>
+			<div class="col-1">
+				<div class="alert alert-primary" role="alert">
+	  				This is a primary alert—check it out!
+				</div>					
+			</div>
+			<div class="col-1">
+				<div class="alert alert-secondary" role="alert">
+	  				This is a primary alert—check it out!
+				</div>					
+			</div>
+
+		</div>
+
+
+	</div>
+
+
+
+<!-- END BOOTSTRAP TESTS -->
+
+
+
+<div class="container-fluid">
+	
+<!-- NAVBAR -->
+	<div class="row">
+		<div class="col-12">
+			<nav>
+				<ul>
+					{% if request.user.is_authenticated %}
+						<li>You are logged in as: {{ request.user.username }} | <a href="{% url 'account:logout' %}">logout</a>.</li>
+						<li><a href="{% url 'deadlines:deadline_list' %}">Deadlines</a></li>
+						<li><a href="{% url 'teams:team_list' %}">Teams</a></li>
+						<li><a href="{% url 'friends:connections' %}">Friends</a></li>
+					{% else %}
+						<li><a href="{% url 'account:login' %}">Login</a></li>
+						<li><a href="{% url 'account:register' %}">Sign up</a></li>
+					{% endif %}
+				</ul>
+			</nav>
+		</div>
+	</div>
+
 
 	<!-- Django messages -->
 	{% if messages %}
@@ -41,6 +236,7 @@
 	{% block content %}
 	{% endblock %}
 
+</div>
 
 	<!-- Bootstrap -->
 	<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
