@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+
+{% block title %}{% endblock %}
+
+
+{% block content %}
+	
+
+	<h1>All connections Test</h1>
+	{% if connections %}
+		
+		{% for connection in connections %}
+			<p>{{ connection }}</p>
+		{% endfor %}	
+
+	{% else %}
+		<p>You don't have any connections</p>
+	{% endif%}
+	
+
+
+{% endblock %}

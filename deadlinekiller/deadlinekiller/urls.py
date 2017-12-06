@@ -27,6 +27,7 @@ urlpatterns = [
     url(r'^account/', include('account.urls', namespace='account')),
     url(r'^deadlines/', include('deadlines.urls', namespace='deadlines')),
     url(r'^teams/', include('teams.urls', namespace='teams')),
+    url(r'^friends/', include('friends.urls', namespace='friends')),
     
 
 ]

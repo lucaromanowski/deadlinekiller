@@ -9,4 +9,4 @@ class Connection(models.Model):
 	 accepted = models.BooleanField(default=False)
 
 	 def __str__(self):
-	 	return 'Connection between {} and {}'.format(str(creator.username), str(following.username))
+	 	return 'Connection between {} and {}'.format(str(self.creator.username), str(self.following.username))
