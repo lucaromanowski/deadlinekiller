@@ -19,7 +19,7 @@
 <body>
 
 
-<!-- BOOSTSTRAP TESTS -->
+<!-- BOOSTSTRAP TESTS 
 
 	<div class="container">
 		<div class="row">
@@ -208,13 +208,50 @@
 
 
 
-<!-- END BOOTSTRAP TESTS -->
+ END BOOTSTRAP TESTS -->
 
 
-
-<div class="container-fluid">
-	
 <!-- NAVBAR -->
+<div class="container-fluid">
+	<nav>
+		<ul class="nav justify-content-end" id="nav_bar">
+			{% if request.user.is_authenticated %}
+				  <li class="nav-item">
+				    <a class="nav-link" href="{% url 'deadlines:deadline_list' %}">Deadlines</a>
+				  </li>
+				  <li class="nav-item">
+				    <a class="nav-link" href="{% url 'friends:connections' %}">Friends</a>
+				  </li>
+				  <li class="nav-item">
+				    <a class="nav-link" href="{% url 'teams:team_list' %}">Teams</a>
+				  </li>
+				  <li class="nav-item">
+				    <a class="nav-link active" href="{% url 'account:logout' %}"> {{ request.user.username }} | Logout</a>
+				  </li>
+			  {% else %}
+				  <li class="nav-item">
+				    <a class="nav-link active" href="{% url 'account:login' %}"> Login</a>
+				  </li>
+				  <li class="nav-item">
+				    <a class="nav-link active" href="{% url 'account:register' %}"> Sign up</a>
+				  </li>
+
+			  {% endif %}
+
+		</ul>
+	</nav>
+
+
+
+
+
+
+
+
+
+
+	
+<!-- OLD NAVBAR
 	<div class="row">
 		<div class="col-12">
 			<nav>
@@ -231,7 +268,7 @@
 				</ul>
 			</nav>
 		</div>
-	</div>
+	</div> -->
 
 
 	<!-- Django messages -->
