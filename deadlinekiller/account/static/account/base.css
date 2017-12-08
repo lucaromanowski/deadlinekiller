@@ -1,5 +1,5 @@
 h1 {
-	color:red;
+	color:#9068be;
 }
 
 
@@ -20,4 +20,5 @@ h1 {
 
 .nav-link:hover{
 	color: #e62739;
+	background-color: black;
 }
