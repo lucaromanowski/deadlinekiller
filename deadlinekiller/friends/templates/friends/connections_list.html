@@ -29,7 +29,11 @@
 	{% if users %}
 		<ul>
 			{% for user in users %}
-			<li>{{ user.username}} | <small><a href="#">add friend</a></small> </li>
+			<li>
+				<p>{{ user.username}} </p>
+				<p>{% include 'friend_form.html' with friend_name=user.username %}</p>
+				<hr/>
+			</li>
 			{% endfor %}
 		</ul>
 	{% else %}
