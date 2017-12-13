@@ -16,6 +16,7 @@ class Connections(LoginRequiredMixin, ListView):
 		context = super(Connections, self).get_context_data()
 		query = self.request.GET.get("q")
 		if query:
+			# Get potentially new friends
 			users = User.objects.filter(
 										Q(username__icontains=query) | 
 										Q(email__icontains=query) |
@@ -25,7 +26,28 @@ class Connections(LoginRequiredMixin, ListView):
 										).distinct().exclude(pk=self.request.user.pk) # add profile bio lookup in future
 			
 
+			# Exclude users that are already friends with request.user (We want to see only users that are not our friends yet)
+			# Get user onnections
+			user_connections = Connection.objects.filter(Q(creator=self.request.user)|
+														 Q(following=self.request.user))
+			
+			# Create list of users from connections
+			connected_users = []
+			for i in user_connections:
+				connected_users.append(i.creator)
+				connected_users.append(i.following)
+			connected_users = set(connected_users)
 
+			# Remove connected users from users in search results
+			for user in connected_users:
+				# if user is in connected users, remove it form users
+				try:
+					# Create new users queryset
+					users = users.exclude(username=user.username)
+				except:
+					continue
+
+			# Put users into the context
 			context['users'] = users		
 		return context
 
@@ -33,9 +55,13 @@ class Connections(LoginRequiredMixin, ListView):
 class MakeConnectionView(LoginRequiredMixin, View):
 	
 	def post(self, request,  *args, **kwargs):
-		user = request.user
+
+		user = User.objects.get(username=request.user)
 		print('user: ', str(user))
-		post_data = request.POST['friend']
-		print('post data: ', str(post_data))
-		print('View, post method')
+		following = User.objects.get(username=request.POST['friend'])
+		print('following: ', str(following))
+		
+		# Create new connection
+		connection = Connection.objects.create(creator=user, following=following)
+		print('connection: ', str(connection))
 		return redirect('friends:connections')
