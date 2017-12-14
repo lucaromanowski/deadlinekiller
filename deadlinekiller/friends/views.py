@@ -6,6 +6,8 @@ from django.views.generic import ListView, View
 
 from .models import Connection 
 
+from account.models import Profile
+
 
 class Connections(LoginRequiredMixin, ListView):
 	model = Connection
@@ -52,6 +54,9 @@ class Connections(LoginRequiredMixin, ListView):
 
 		# Getting friends ( filtering in template - change it)
 		c = Connection.objects.all()
+		#profile = Profile.objects.get(user) 
+
+		# Try to get followers and and connected by Profile methods
 
 		context['friends'] = c	
 
