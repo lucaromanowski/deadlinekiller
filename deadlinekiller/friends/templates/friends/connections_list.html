@@ -23,8 +23,13 @@
 			{% if connections %}
 			<h2>Your Friends</h2>
 		
-				{% for connection in connections %}
-					<p>{{ connection }}</p>
+				{% for friend in friends %}
+					{% if friend.creator != request.user %}
+						<p>{{ friend.creator }}</p>
+						
+					{% endif %}
+						<p>{{ friend.following }}</p>
+						
 				{% endfor %}	
 
 			{% else %}

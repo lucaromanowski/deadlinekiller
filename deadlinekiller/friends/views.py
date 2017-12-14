@@ -48,7 +48,13 @@ class Connections(LoginRequiredMixin, ListView):
 					continue
 
 			# Put users into the context
-			context['users'] = users		
+			context['users'] = users	
+
+		# Getting friends ( filtering in template - change it)
+		c = Connection.objects.all()
+
+		context['friends'] = c	
+
 		return context
 
 
