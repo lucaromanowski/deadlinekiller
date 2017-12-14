@@ -5,42 +5,57 @@
 
 
 {% block content %}
+
+	
+	<!-- header -->
+	<div class="row">
+		<div class="col-12">
+			<h1>All connections Test</h1>
+		</div>
+
+	</div>
 	
 
-	<h1>All connections Test</h1>
-
-	{% if connections %}
+	
+	<div class="row">
+		<!-- All connections (all friends) -->
+		<div class="col-6">
+			{% if connections %}
+			<h2>Your Friends</h2>
 		
-		{% for connection in connections %}
-			<p>{{ connection }}</p>
-		{% endfor %}	
+				{% for connection in connections %}
+					<p>{{ connection }}</p>
+				{% endfor %}	
 
-	{% else %}
-		<p>You don't have any connections</p>
-	{% endif%}
-	
-	<h2>Find new friends:</h2>
-	<form method="get" action="">
-		<input type="text" name="q" placeholder="Search friends" value="{{ request.GET.q }}">
-		<input type="submit" value="Search">
-	</form>
-
-	
-	{% if users %}
-		<ul>
-			{% for user in users %}
-			<li>
-				<p>{{ user.username}} </p>
-				<p>{% include 'friend_form.html' with friend_name=user.username %}</p>
+			{% else %}
+				<p>You don't have any connections</p>
+			{% endif%}
+		</div>
+		
+		<!-- Search results and form -->
+		<div class="col-6">
+			<h2>Find new friends:</h2>
+				<form method="get" action="">
+					<input type="text" name="q" placeholder="Search friends" value="{{ request.GET.q }}">
+					<input type="submit" value="Search">
+				</form>
 				<hr/>
-			</li>
-			{% endfor %}
-		</ul>
-	{% else %}
-		<p>No friends so far... click search to find new ones!</p>
-	{% endif %}
-	
+			{% if users %}
+			<h2>Search results</h2>
+				<ul>
+					{% for user in users %}
+						<li>
+						<p>{{ user.username}} </p>
+						<p>{% include 'friend_form.html' with friend_name=user.username %}</p>
+						<hr/>
+						</li>
+					{% endfor %}
+				</ul>
+			{% else %}
+				<p>No friends so far... click search to find new ones!</p>
+			{% endif %}
+		</div>	
+	</div>
 
 	
-
 {% endblock %}
