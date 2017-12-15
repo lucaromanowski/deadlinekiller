@@ -67,11 +67,14 @@ class Connections(LoginRequiredMixin, ListView):
 
 		# All logged in user connections
 		all_connections = con | foll
+		number_of_friends = all_connections.count()
 		print('all connections: ', str(all_connections))
 
-
+		# Connections
 		context['friends'] = all_connections	
-
+		# Number of friends
+		context['friends_quantity'] = number_of_friends
+		print('You have: ', str(number_of_friends), 'friends')
 		return context
 
 
