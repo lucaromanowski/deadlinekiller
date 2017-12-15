@@ -1,8 +1,9 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.models import User
 from django.db.models import Q
-from django.shortcuts import render, redirect
-from django.views.generic import ListView, View
+from django.shortcuts import redirect, render
+from django.urls import reverse_lazy
+from django.views.generic import DeleteView, ListView, View
 
 from .models import Connection 
 
@@ -61,20 +62,15 @@ class Connections(LoginRequiredMixin, ListView):
 		con = self.request.user.profile.get_connections()
 		# Connection.following
 		foll = self.request.user.profile.get_followers()
-		
-		print("friends con: ", str(con))
-		print("friends foll: ", str(foll))
-
+	
 		# All logged in user connections
 		all_connections = con | foll
 		number_of_friends = all_connections.count()
-		print('all connections: ', str(all_connections))
 
 		# Connections
 		context['friends'] = all_connections	
 		# Number of friends
 		context['friends_quantity'] = number_of_friends
-		print('You have: ', str(number_of_friends), 'friends')
 		return context
 
 
@@ -91,3 +87,8 @@ class MakeConnectionView(LoginRequiredMixin, View):
 		connection = Connection.objects.create(creator=user, following=following)
 		print('connection: ', str(connection))
 		return redirect('friends:connections')
+
+
+class DeleteConnectionView(LoginRequiredMixin, DeleteView):
+	model = Connection
+	success_url = reverse_lazy('friends:connections')
