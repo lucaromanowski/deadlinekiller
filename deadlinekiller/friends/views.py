@@ -53,12 +53,24 @@ class Connections(LoginRequiredMixin, ListView):
 			context['users'] = users	
 
 		# Getting friends ( filtering in template - change it)
-		c = Connection.objects.all()
+		#c = Connection.objects.all()
 		#profile = Profile.objects.get(user) 
 
 		# Try to get followers and and connected by Profile methods
+		# Connection.creator
+		con = self.request.user.profile.get_connections()
+		# Connection.following
+		foll = self.request.user.profile.get_followers()
+		
+		print("friends con: ", str(con))
+		print("friends foll: ", str(foll))
 
-		context['friends'] = c	
+		# All logged in user connections
+		all_connections = con | foll
+		print('all connections: ', str(all_connections))
+
+
+		context['friends'] = all_connections	
 
 		return context
 
