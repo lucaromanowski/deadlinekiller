@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+
+
+
+{% block title %}All Friends{% endblock %}
+
+{% block content %}
+	<h1>All friends</h1>
+	<p>You have (...) friends</p>
+	{% for friend in friends %}
+					{% if friend.creator != request.user %}
+						<div class="card" style="width: 40rem;">
+							  <div class="card-body">
+								    <h4 class="card-title"><a href="#">{{ friend.following }}</h4>
+								    <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6>
+								    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+								    <a href="{% url 'friends:delete_connection' friend.pk %}" class="card-link">Remove friend</a>
+								    
+							  </div>
+						</div>
+
+						<p>{{ friend.creator }}</p>
+						
+					{% endif %}
+					<div class="card" style="width: 40rem;">
+							  <div class="card-body">
+								    <h4 class="card-title"><a href="#">{{ friend.following }}</a></h4>
+								    <h6 class="card-subtitle mb-2 text-1muted">Card subtitle</h6>
+								    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+								    <a href="{% url 'friends:delete_connection' friend.pk  %}" class="card-link">Remove friend</a>
+								    
+							  </div>
+						</div>
+	{% endfor %}
+{% endblock %}
