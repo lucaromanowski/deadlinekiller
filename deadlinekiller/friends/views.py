@@ -65,7 +65,7 @@ class Connections(LoginRequiredMixin, ListView):
 		connections = con | foll
 		number_of_friends = connections.count()
 		connections = connections[0:2]
-		#number_of_friends = connections.count()
+		
 
 		# Connections
 		context['friends'] = connections	
@@ -80,9 +80,21 @@ class FriendsListView(LoginRequiredMixin, ListView):
 	context_object_name = 'friends'
 
 
-	#def get_query_set(self, **kwargs)
-		#super(FriendsListView, self).get_context_data()
+	def get_context_data(self, **kwargs):
+		context = super(FriendsListView, self).get_context_data()
+		# Getting friends ( filtering in template - change it)
 
+		# Try to get followers and and connected by Profile methods
+		# Connection.creator
+		con = self.request.user.profile.get_connections()
+		# Connection.following
+		foll = self.request.user.profile.get_followers()
+
+		connections = con | foll
+		number_of_friends = connections.count()
+		context['friends_quantity'] = number_of_friends
+		context['friends'] = connections
+		return context
 
 
 class MakeConnectionView(LoginRequiredMixin, View):
