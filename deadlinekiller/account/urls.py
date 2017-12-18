@@ -29,6 +29,10 @@ urlpatterns = [
     url(r'^register/$', views.register, name='register'),
     url(r'^edit/$', views.edit, name='edit'),
 
+    # Show user profile
+    url(r'^profile/(?P<pk>\d+)/$', views.ProfileView.as_view(), name='profile'),
+
+
 
 
 
