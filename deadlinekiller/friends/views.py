@@ -63,12 +63,13 @@ class Connections(LoginRequiredMixin, ListView):
 	
 		# All logged in user connections
 		connections = con | foll
+		connections = connections.filter(accepted=True)	
 		number_of_friends = connections.count()
 		connections = connections[0:2]
 		
 
 		# Connections
-		context['friends'] = connections	
+		context['friends'] = connections
 		# Number of friends
 		context['friends_quantity'] = number_of_friends
 		return context
@@ -91,6 +92,8 @@ class FriendsListView(LoginRequiredMixin, ListView):
 		foll = self.request.user.profile.get_followers()
 
 		connections = con | foll
+		connections = connections.filter(accepted=True)
+		print('connections: ', str(connections))
 		number_of_friends = connections.count()
 		context['friends_quantity'] = number_of_friends
 		context['friends'] = connections
@@ -111,3 +114,22 @@ class MakeConnectionView(LoginRequiredMixin, View):
 class DeleteConnectionView(LoginRequiredMixin, DeleteView):
 	model = Connection
 	success_url = reverse_lazy('friends:connections')
+
+
+class FriendsInvitationsView(LoginRequiredMixin, ListView):
+	model = Connection
+	template_name = 'friends/invitations_list.html'
+	context_object_name = 'invited_friends'
+
+
+	def get_context_data(self, **kargs):
+		context = super(FriendsInvitationsView, self).get_context_data()
+		# users i invited
+		invited_by_me = self.request.user.profile.get_connections().filter(accepted=False)
+		# users inviteted me
+		invited_me = self.request.user.profile.get_followers().filter(accepted=False)
+		context['invited_by_me'] = invited_by_me
+		context['invited_me'] = invited_me
+
+
+		return context

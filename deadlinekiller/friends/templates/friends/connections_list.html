@@ -20,9 +20,10 @@
 	<div class="row">
 		<!-- All connections (all friends) -->
 		<div class="col-6">
-			{% if connections %}
+			{% if friends %}
 			<h2>Your Friends. <a href="{% url 'friends:friends_list' %}">See all your friends.</a></h2>
 			<p><small>{% if friends %}You have {{ friends_quantity }} friends.{% endif %}</small></p>
+			<p><small><a href="{% url 'friends:friends_invitations' %}">Check </a>for invitations</small></p>
 		
 				{% for friend in friends %}
 					{% if friend.creator != request.user %}
@@ -54,7 +55,8 @@
 				{% endfor %}	
 
 			{% else %}
-				<p>You don't have any connections</p>
+				<h1>You don't have any friends yet</h1>
+				<p>Make some friendships!</p>
 			{% endif%}
 		</div>
 		

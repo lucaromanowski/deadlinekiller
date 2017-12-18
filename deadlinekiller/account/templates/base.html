@@ -219,9 +219,21 @@
 				  <li class="nav-item">
 				    <a class="nav-link" href="{% url 'deadlines:deadline_list' %}">Deadlines</a>
 				  </li>
+				  <li class="nav-item dropdown">
+				    	<a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Friends</a>
+				   		 <div class="dropdown-menu">
+				     		<a class="dropdown-item" href="{% url 'friends:connections' %}">Your friends</a>
+				      		<a class="dropdown-item" href="{% url 'friends:friends_invitations' %}">Your invitations</a>
+				      		
+				      	<!--<div class="dropdown-divider"></div>
+				      		<a class="dropdown-item" href="#">Separated link</a>
+				    	</div> -->
+				  </li>
+
+				  <!-- Old friends
 				  <li class="nav-item">
 				    <a class="nav-link" href="{% url 'friends:connections' %}">Friends</a>
-				  </li>
+				  </li> -->
 				  <li class="nav-item">
 				    <a class="nav-link" href="{% url 'teams:team_list' %}">Teams</a>
 				  </li>

@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+
+{% block title %}{% endblock %}
+
+{% block content %}
+	<h1>Friends invitations</h1>
+	
+
+	<h2>Invited by me:</h2>
+		<ul>
+			{% for i in invited_by_me%}
+				<li>{{ i.following.username }} | <small>waiting...</small></li>
+			{% endfor %}
+		</ul>
+
+	<h2>Invited me:</h2>
+		<ul>
+			{% for j in invited_me%}
+				<li>{{ j.creator.username }} | <a href="#">accept</a> or <a href="#">decline</a></li>
+			{% endfor %}
+		</ul>
+{% endblock %}
