@@ -93,7 +93,6 @@ class FriendsListView(LoginRequiredMixin, ListView):
 
 		connections = con | foll
 		connections = connections.filter(accepted=True)
-		print('connections: ', str(connections))
 		number_of_friends = connections.count()
 		context['friends_quantity'] = number_of_friends
 		context['friends'] = connections

@@ -222,12 +222,13 @@
 				  <li class="nav-item dropdown">
 				    	<a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Friends</a>
 				   		 <div class="dropdown-menu">
-				     		<a class="dropdown-item" href="{% url 'friends:connections' %}">Your friends</a>
+				     		<a class="dropdown-item" href="{% url 'friends:friends_list' %}">Your friends</a>
 				      		<a class="dropdown-item" href="{% url 'friends:friends_invitations' %}">Your invitations</a>
 				      		
-				      	<!--<div class="dropdown-divider"></div>
-				      		<a class="dropdown-item" href="#">Separated link</a>
-				    	</div> -->
+				      		
+				      	<div class="dropdown-divider"></div>
+				      		<a class="dropdown-item" href="{% url 'friends:connections' %}">Search friends</a>
+				    	</div> 
 				  </li>
 
 				  <!-- Old friends
