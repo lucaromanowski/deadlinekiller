@@ -1,7 +1,7 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.models import User
 from django.db.models import Q
-from django.shortcuts import redirect, render
+from django.shortcuts import redirect, render, get_object_or_404
 from django.urls import reverse_lazy
 from django.views.generic import DeleteView, ListView, View
 
@@ -134,12 +134,29 @@ class FriendsInvitationsView(LoginRequiredMixin, ListView):
 		return context
 
 
-# Accept invitation view
+# Accept and declin invitation view
 class AcceptConnectionView(LoginRequiredMixin, View):
 
 	def post(self, request, *args, **kwargs):
-		print('Accept friend')
-		return redirect('friends:invitations')
+		# Accept case
+		if request.POST['status'] == 'accept':
+			print('acccept friend')
+
+			# Get creator and following from form
+			creator = request.POST['creator']
+			following = request.POST['following']
+			con_pk = request.POST['pk']
+			print('Creator: ', str(creator))
+			print('Following: ', str(following))
+			print('PK: ', str(con_pk))
+			# Get Connection from DB
+			con = get_object_or_404(Connection, pk=con_pk)
+			con.accepted = True
+			con.save()
+			print('Con object: ', str(con))
+		# Decline case
+			
+		return redirect('friends:friends_invitations')
  
 
- # Decline invitation view
+ 

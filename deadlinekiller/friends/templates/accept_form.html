@@ -1,6 +1,9 @@
 <form method="POST" action="{% url 'friends:accept_connection' %}">
 	
-	<input type="hidden" name="friend" value="jeden">
+	<input type="hidden" name="status" value="accept">
+	<input type="hidden" name="creator" value="{{ creator }}">
+	<input type="hidden" name="pk" value="{{ pk }}">
+	<input type="hidden" name="following" value="{{ following }}">
 	{% csrf_token %}
 	<button type="submit" value="Add Friend" class="btn btn-success">Accept</button>
 	
