@@ -1,0 +1,7 @@
+<form method="POST" action="{% url 'friends:accept_connection' %}">
+	
+	<input type="hidden" name="friend" value="jeden">
+	{% csrf_token %}
+	<button type="submit" value="Add Friend" class="btn btn-success">Accept</button>
+	
+</form>

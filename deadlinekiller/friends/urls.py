@@ -12,6 +12,8 @@ urlpatterns = [
     url(r'^all/$', views.FriendsListView.as_view(), name='friends_list'),
     # Invitations
     url(r'^invitations/$', views.FriendsInvitationsView.as_view(), name='friends_invitations'),
+    # Accept invitation
+    url(r'^accept/$', views.AcceptConnectionView.as_view(), name='accept_connection'),
     
     url(r'^make-connection/$', views.MakeConnectionView.as_view(), name='make_connection'),
     url(r'^delete-connection/(?P<pk>\d+)/$', views.DeleteConnectionView.as_view(), name='delete_connection'),

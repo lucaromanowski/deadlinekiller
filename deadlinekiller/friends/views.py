@@ -132,3 +132,14 @@ class FriendsInvitationsView(LoginRequiredMixin, ListView):
 
 
 		return context
+
+
+# Accept invitation view
+class AcceptConnectionView(LoginRequiredMixin, View):
+
+	def post(self, request, *args, **kwargs):
+		print('Accept friend')
+		return redirect('friends:invitations')
+ 
+
+ # Decline invitation view

@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 
-{% block title %}{% endblock %}
+{% block title %}Invitations{% endblock %}
 
 {% block content %}
 	<h1>Friends invitations</h1>
@@ -16,7 +16,16 @@
 	<h2>Invited me:</h2>
 		<ul>
 			{% for j in invited_me%}
-				<li>{{ j.creator.username }} | <a href="#">accept</a> or <a href="#">decline</a></li>
+				<li>
+					<div>
+						<h2>{{ j.creator.username }}</h2>
+							<div style="display: inline-block;">
+								{% include 'accept_form.html' %}
+							</div>
+							<div style="display: inline-block;">								
+								{% include 'decline_form.html' %}
+							</div>
+					</div>				
 			{% endfor %}
 		</ul>
 {% endblock %}
