@@ -129,8 +129,6 @@ class FriendsInvitationsView(LoginRequiredMixin, ListView):
 		invited_me = self.request.user.profile.get_followers().filter(accepted=False)
 		context['invited_by_me'] = invited_by_me
 		context['invited_me'] = invited_me
-
-
 		return context
 
 
@@ -139,23 +137,17 @@ class AcceptConnectionView(LoginRequiredMixin, View):
 
 	def post(self, request, *args, **kwargs):
 		# Accept case
-		if request.POST['status'] == 'accept':
-			print('acccept friend')
-
-			# Get creator and following from form
-			creator = request.POST['creator']
-			following = request.POST['following']
-			con_pk = request.POST['pk']
-			print('Creator: ', str(creator))
-			print('Following: ', str(following))
-			print('PK: ', str(con_pk))
+		if request.POST.get('status') == 'accept':
+			con_pk = request.POST.get('pk')
 			# Get Connection from DB
 			con = get_object_or_404(Connection, pk=con_pk)
 			con.accepted = True
+			# Send information to user who invited me, that i accepted his invitation --------TO DO
 			con.save()
-			print('Con object: ', str(con))
 		# Decline case
-			
+		if request.POST.get('status') == 'decline':
+			# Get Connection object and delete it
+			con = get_object_or_404(Connection, pk=request.POST.get('pk')).delete()			
 		return redirect('friends:friends_invitations')
  
 

@@ -20,10 +20,10 @@
 					<div>
 						<h2>{{ j.creator.username }}</h2>
 							<div style="display: inline-block;">
-								{% include 'accept_form.html' with creator=j.creator following=j.following pk=j.pk %}
+								{% include 'accept_form.html' with pk=j.pk %}
 							</div>
 							<div style="display: inline-block;">								
-								{% include 'decline_form.html' %}
+								{% include 'decline_form.html' with pk=j.pk %}
 							</div>
 					</div>				
 			{% endfor %}
