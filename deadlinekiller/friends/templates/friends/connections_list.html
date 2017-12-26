@@ -1,0 +1,89 @@
+{% extends 'base.html' %}
+
+
+{% block title %}{% endblock %}
+
+
+{% block content %}
+
+	
+	<!-- header -->
+	<div class="row">
+		<div class="col-12">
+			<h1>All connections Test</h1>
+		</div>
+
+	</div>
+	
+
+	
+	<div class="row">
+		<!-- All connections (all friends) -->
+		<div class="col-6">
+			{% if friends %}
+			<h2>Your Friends. <a href="{% url 'friends:friends_list' %}">See all your friends.</a></h2>
+			<p><small>{% if friends %}You have {{ friends_quantity }} friends.{% endif %}</small></p>
+			<p><small><a href="{% url 'friends:friends_invitations' %}">Check </a>for invitations</small></p>
+		
+				{% for friend in friends %}
+					{% if friend.creator != request.user %}
+						<div class="card" style="width: 40rem;">
+							  <div class="card-body">
+								    <h4 class="card-title"><a href="{{ friend.following.profile.get_absolute_url }}">{{ friend.following }}</h4>
+								    <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6>
+								    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+								    <a href="{% url 'friends:delete_connection' friend.pk %}" class="card-link">Remove friend</a>
+								    
+							  </div>
+						</div>
+
+						<p>{{ friend.creator }}</p>
+						
+					{% endif %}
+					<div class="card" style="width: 40rem;">
+							  <div class="card-body">
+								    <h4 class="card-title"><a href="{{ friend.following.profile.get_absolute_url }}">{{ friend.following }}</a></h4>
+								    <h6 class="card-subtitle mb-2 text-1muted">Card subtitle</h6>
+								    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+								    <a href="{% url 'friends:delete_connection' friend.pk  %}" class="card-link">Remove friend</a>
+								    
+							  </div>
+						</div>
+
+						
+						
+				{% endfor %}	
+
+			{% else %}
+				<h1>You don't have any friends yet</h1>
+				<p>Make some friendships!</p>
+			{% endif%}
+		</div>
+		
+		<!-- Search results and form -->
+		<div class="col-6">
+			<h2>Find new friends:</h2>
+				<form method="get" action="">
+					<input type="text" name="q" placeholder="Search friends" value="{{ request.GET.q }}">
+					<input type="submit" value="Search">
+				</form>
+				<hr/>
+			{% if users %}
+			<h2>Search results</h2>
+				<ul>
+					{% for user in users %}
+						<li>
+						<p>{{ user.username}} </p>
+						<p>{% include 'friend_form.html' with friend_name=user.username %}</p>
+						<hr/>
+						</li>
+					{% endfor %}
+				</ul>
+			{% else %}
+				<p>No friends so far... click search to find new ones!</p>
+			{% endif %}
+		</div>	
+	</div>
+
+	
+{% endblock %}

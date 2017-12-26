@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+
+{% block title %}Invitations{% endblock %}
+
+{% block content %}
+	<h1>Friends invitations</h1>
+	
+
+	<h2>Invited by me:</h2>
+		<ul>
+			{% for i in invited_by_me%}
+				<li>{{ i.following.username }} | <small>waiting...</small></li>
+			{% endfor %}
+		</ul>
+
+	<h2>Invited me:</h2>
+		<ul>
+			{% for j in invited_me%}
+				<li>
+					<div>
+						<h2>{{ j.creator.username }}</h2>
+							<div style="display: inline-block;">
+								{% include 'accept_form.html' with pk=j.pk %}
+							</div>
+							<div style="display: inline-block;">								
+								{% include 'decline_form.html' with pk=j.pk %}
+							</div>
+					</div>				
+			{% endfor %}
+		</ul>
+{% endblock %}

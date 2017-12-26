@@ -1,3 +1,33 @@
 h1 {
-	color:red;
+	color:#9068be;
+}
+
+/* colors
+
+	#6ed3cf - light blue
+	#9068be - purple
+	#e1e8f0 - light grey
+	#e62739 - red
+
+*/
+
+
+/* navbar */
+
+.container-fluid {
+	padding: 0;
+}
+
+#nav_bar {
+	background-color: #3c3c3d;
+
+}
+
+.nav-link{
+	color: white;
+}
+
+.nav-link:hover{
+	color: #e62739;
+	background-color: black;
 }

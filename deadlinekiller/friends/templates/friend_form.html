@@ -1,0 +1,7 @@
+<form method="POST" action="{% url 'friends:make_connection' %}">
+	
+	<input type="hidden" name="friend" value="{{ friend_name }}">
+	{% csrf_token %}
+	<button type="submit" value="Add Friend" class="btn btn-primary">Add Friend</button>
+	
+</form>

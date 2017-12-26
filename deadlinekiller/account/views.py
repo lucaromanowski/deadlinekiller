@@ -1,10 +1,19 @@
 from django.contrib.auth import authenticate, login 
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.http import HttpResponse
 from django.shortcuts import render
+from django.views.generic import DetailView
 
 from .forms import LoginForm, UserRegistrationForm, UserEditForm, ProfileEditForm
 from .models import Profile
+
+
+
+class ProfileView(LoginRequiredMixin, DetailView):
+	model = Profile
+	template_name = 'account/profile_detail.html'
+
 
 
 def user_login(request):
@@ -59,6 +68,9 @@ def edit(request):
 		profile_form = ProfileEditForm(instance=request.user.profile)
 	return render(request, 'account/edit.html', { 'user_form' : user_form,
 								 				  'profile_form' : profile_form })
+
+
+
 
 
 

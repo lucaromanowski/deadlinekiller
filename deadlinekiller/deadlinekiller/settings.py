@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'deadlines',
     'teams',
+    'friends',
     # third party
     'crispy_forms',
 ]
