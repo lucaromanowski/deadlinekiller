@@ -132,9 +132,12 @@ class FriendsInvitationsView(LoginRequiredMixin, ListView):
 		return context
 
 
-# Accept and declin invitation view
-class AcceptConnectionView(LoginRequiredMixin, View):
 
+class AcceptConnectionView(LoginRequiredMixin, View):
+	""" 
+	Accept and declin invitation view 
+	"""
+	
 	def post(self, request, *args, **kwargs):
 		# Accept case
 		if request.POST.get('status') == 'accept':
