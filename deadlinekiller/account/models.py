@@ -3,6 +3,7 @@ from django.db import models
 from django.urls import reverse
 
 from friends.models import Connection
+from teams.models import Team
 
 
 
@@ -11,10 +12,10 @@ class Profile(models.Model):
 	date_of_birth = models.DateField(blank=True, null=True)
 	photo = models.ImageField(upload_to='users/%Y/%m/%d', blank=True)
 	# In future (# add profile bio lookup in future in friends app)
-	# bio = models.TextField(blank=True, null=True)
+	bio = models.TextField(blank=True, null=True)
 
 	# from Teams app
-	#team = models.ManyToManyField(Team, blank=True)
+	team = models.ManyToManyField(Team, blank=True)
 
 
 	def get_connections(self):

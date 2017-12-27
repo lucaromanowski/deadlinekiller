@@ -7,6 +7,21 @@
 	<h2>Team: {{ team.name }}</h2>
 	<p><small>Boss (creator): {{ team.creator }}</small></p>
 	<h3>Members:</h3>
+
+	<form action="" method="get">
+		<p>Search for new team members</p>
+		<input type="text" name='q' >
+		{% csrf_token %}
+		<input type="submit" value="Search">
+	</form>
+	{% if users %}
+		{% for u in users %}
+			<p>{{u}} | <small><a href="#">add to the team</a></small></p>
+		{% endfor %}
+	{% else %}
+		<p>no users</p>
+	{% endif %}
+	
 	<hr/>
 	<p>Back to <a href="{% url 'teams:team_list' %}">teams</a>.</p>
 	<hr/>
