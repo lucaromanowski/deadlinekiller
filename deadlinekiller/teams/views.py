@@ -9,6 +9,7 @@ from django.views.generic import ListView, CreateView, DetailView, DeleteView
 
 from .forms import TeamCreationForm
 from .models import Team
+from account.models import Profile
 
 
 class TeamListView(LoginRequiredMixin, ListView):
@@ -43,19 +44,41 @@ class TeamDetailView(LoginRequiredMixin, DetailView):
 		# Search for users who will be added to the team
 		query = self.request.GET.get('q')
 		if query:
-			#Search within connections
+			#Search within connections (search for friends)
+			con = self.request.user.profile.get_connections()
+			foll = self.request.user.profile.get_followers()
+			all_friends = con | foll
+			print('all friends: ', str(all_friends))
+
+			#Filter form friends
+
 			# If somebody search for users
-			users = User.objects.filter(
-										Q(username__icontains=query) | 
-										Q(email__icontains=query) |
-										Q(first_name__icontains=query) |
-										Q(last_name__icontains=query) | 
-										Q(profile__date_of_birth__icontains=query) 
+			users = all_friends.filter(
+										Q(creator__username__icontains=query) | 
+										Q(following__username__icontains=query)  
+										#Q(email__icontains=query) |
+										#Q(first_name__icontains=query) |
+										#Q(last_name__icontains=query) | 
+										#Q(profile__date_of_birth__icontains=query) 
 										).distinct().exclude(pk=self.request.user.pk) # add profile bio lookup in future) 
 			
 
 			print('users: ', str(users))
 			context['users'] = users
+		else:
+			# Get all your connections (friends) 
+			con = self.request.user.profile.get_connections()
+			foll = self.request.user.profile.get_followers()
+			all_friends = con | foll
+			# Filter out users already in that team
+
+
+
+
+
+
+			context['users'] = all_friends
+
 		print('query', str(query))
 		print('get_context_data ivoked')
 		# show the list of all friends
