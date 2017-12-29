@@ -41,6 +41,12 @@ class TeamDetailView(LoginRequiredMixin, DetailView):
 
 	def get_context_data(self, *args, **kwargs):
 		context = super(TeamDetailView, self).get_context_data()
+		
+		# Get all team members
+		team = self.get_object()
+		team_members = team.profile_set.all()
+		context['team_members'] = team_members
+
 		# Search for users who will be added to the team
 		query = self.request.GET.get('q')
 		if query:

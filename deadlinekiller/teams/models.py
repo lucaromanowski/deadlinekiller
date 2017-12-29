@@ -9,6 +9,7 @@ class Team(models.Model):
 	created = models.DateTimeField(auto_now_add=True)
 	updated = models.DateTimeField(auto_now=True)
 	creator = models.ForeignKey(settings.AUTH_USER_MODEL, related_name='teams', blank=True, null=True)
+	
 
 
 	def __str__(self):

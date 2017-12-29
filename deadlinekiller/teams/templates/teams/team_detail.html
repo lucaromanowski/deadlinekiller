@@ -7,7 +7,13 @@
 	<h2>Team: {{ team.name }}</h2>
 	<p><small>Boss (creator): {{ team.creator }}</small></p>
 	<h3>Members:</h3>
-
+	<p>All team members here</p>
+	<ul>
+		{% for member in team_members %}
+			<li>{{ member }}</li>
+		{% endfor %}
+	</ul>
+	<hr/>
 	<form action="" method="get">
 		<p>Search for new team members</p>
 		<input type="text" name='q' >
