@@ -10,7 +10,7 @@
 	<p>All team members here</p>
 	<ul>
 		{% for member in team_members %}
-			<li>{{ member.user.username }} | <small><a href="#">remove from the team</a></small></li>
+			<li>{{ member.user.username }} {% include 'teams/remove_from_team.html' with team_pk=team.pk profile_pk=member.pk %}</li>
 		{% endfor %}
 	</ul>
 	<hr/>

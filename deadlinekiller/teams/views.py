@@ -113,8 +113,16 @@ class AddToTheTeamView(LoginRequiredMixin, View):
 
 		# Case 2 remove team member
 		elif request.POST.get('status') == 'remove':
-			pass
-
+			
+			# Get a team
+			team = get_object_or_404(Team, pk=request.POST.get('team_pk'))
+			
+			# Get a profile
+			profile = get_object_or_404(Profile, pk=request.POST.get('profile_pk'))
+			
+			# Remove given profile from the team
+			team.profile_set.remove(profile)
+		
 		return redirect('teams:team_list')
 
 

@@ -1,0 +1,7 @@
+<form action="{% url 'teams:add_to_the_team' %}" method="post">
+	<input type="hidden" name="status" value="remove">
+	<input type="hidden" name="team_pk" value="{{ team_pk }}">
+	<input type="hidden" name="profile_pk" value="{{ profile_pk }}">
+	{% csrf_token %}
+	<input type="submit" value="Remove from the team">
+</form>
