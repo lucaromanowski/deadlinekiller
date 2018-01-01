@@ -10,7 +10,7 @@
 	<p>All team members here</p>
 	<ul>
 		{% for member in team_members %}
-			<li>{{ member }}</li>
+			<li>{{ member.user.username }} | <small><a href="#">remove from the team</a></small></li>
 		{% endfor %}
 	</ul>
 	<hr/>
@@ -23,7 +23,7 @@
 	<hr>
 	{% if users %}
 		{% for u in users %}
-			<p>{{u}} | <small><a href="#">add to the team</a></small></p>
+			<p>{{u}} | {% include 'teams/add_to_team.html' with team_pk=team.pk con_pk=u.pk %}</p>
 		{% endfor %}
 	{% else %}
 		<p>no users</p>

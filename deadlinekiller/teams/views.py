@@ -2,14 +2,15 @@
 from django.db.models import Q
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.models import User
-from django.shortcuts import render
+from django.shortcuts import get_object_or_404, render, redirect
 from django.urls import reverse_lazy
 from django.utils.text import slugify
-from django.views.generic import ListView, CreateView, DetailView, DeleteView
+from django.views.generic import ListView, CreateView, DetailView, DeleteView, View
 
 from .forms import TeamCreationForm
 from .models import Team
 from account.models import Profile
+from friends.models import Connection
 
 
 class TeamListView(LoginRequiredMixin, ListView):
@@ -54,10 +55,8 @@ class TeamDetailView(LoginRequiredMixin, DetailView):
 			con = self.request.user.profile.get_connections()
 			foll = self.request.user.profile.get_followers()
 			all_friends = con | foll
-			print('all friends: ', str(all_friends))
 
 			#Filter form friends
-
 			# If somebody search for users
 			users = all_friends.filter(
 										Q(creator__username__icontains=query) | 
@@ -67,9 +66,6 @@ class TeamDetailView(LoginRequiredMixin, DetailView):
 										#Q(last_name__icontains=query) | 
 										#Q(profile__date_of_birth__icontains=query) 
 										).distinct().exclude(pk=self.request.user.pk) # add profile bio lookup in future) 
-			
-
-			print('users: ', str(users))
 			context['users'] = users
 		else:
 			# Get all your connections (friends) 
@@ -77,17 +73,7 @@ class TeamDetailView(LoginRequiredMixin, DetailView):
 			foll = self.request.user.profile.get_followers()
 			all_friends = con | foll
 			# Filter out users already in that team
-
-
-
-
-
-
 			context['users'] = all_friends
-
-		print('query', str(query))
-		print('get_context_data ivoked')
-		# show the list of all friends
 		return context
 
 
@@ -95,6 +81,41 @@ class TeamDeleteView(LoginRequiredMixin, DeleteView):
 	model = Team
 	template_name = 'teams/team_delete.html'
 	success_url = reverse_lazy('teams:team_list')
+
+
+class AddToTheTeamView(LoginRequiredMixin, View):
+	'''
+	This view adds a user (his profile) to the team
+	and removes it.
+	'''
+
+	def post(self, request, *args, **kwargs):
+		# Case 1 add team member
+		if request.POST.get('status') == 'add':
+
+			# Get a team
+			team = get_object_or_404(Team, pk=request.POST.get('team_pk'))
+			# Get connection
+			connection = get_object_or_404(Connection, pk=request.POST.get('con_pk'))
+
+			# Get user from connection
+			creator = connection.creator
+			following = connection.following
+
+			# Get user that is not a logged in user
+			if creator == request.user:
+				new_member = following
+			else:
+				new_member = creator
+			# Add new user profile to the team
+			team.profile_set.add(new_member.profile)
+			team.save()
+
+		# Case 2 remove team member
+		elif request.POST.get('status') == 'remove':
+			pass
+
+		return redirect('teams:team_list')
 
 
 
