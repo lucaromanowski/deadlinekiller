@@ -21,6 +21,7 @@
 		<input type="submit" value="Search">
 	</form>
 	<hr>
+	<h3>Choose a new team member from your friends</h3>
 	{% if users %}
 		{% for u in users %}
 			<p>{{u}} | {% include 'teams/add_to_team.html' with team_pk=team.pk con_pk=u.pk %}</p>

@@ -66,6 +66,14 @@ class TeamDetailView(LoginRequiredMixin, DetailView):
 										#Q(last_name__icontains=query) | 
 										#Q(profile__date_of_birth__icontains=query) 
 										).distinct().exclude(pk=self.request.user.pk) # add profile bio lookup in future) 			
+			
+			# Check if user is a team member allready and remove it from results
+			for c in users:
+				if c.creator.profile in team_members:
+					users = users.exclude(pk=c.pk)
+
+				elif c.following.profile in team_members:
+					users = users.exclude(pk=c.pk)
 			context['users'] = users
 		else:
 			# Get all your connections (friends) 
@@ -74,27 +82,13 @@ class TeamDetailView(LoginRequiredMixin, DetailView):
 			# Get all connections together 
 			all_friends = con | foll
 
-			print('Connections: ', str(all_friends))
-			print('team members: ', str(team_members))
-
 			# Check if friend is a team member allready and remove it from results
 			for c in all_friends:
 				if c.creator.profile in team_members:
-					print('profile in team members - creator case')
+					all_friends = all_friends.exclude(pk=c.pk)
 
 				elif c.following.profile in team_members:
-					print('profile in team members - following case')
-			
-
-
-			all_friends_con = [c for c in con if c.creator.profile not in team_members]
-			all_friends_fol = [c for c in con if c.following.profile not in team_members]
-			print('all friends con: ', str(all_friends_con)) 
-
-			all_friends = all_friends_con + all_friends_fol
-			
-
-			
+					all_friends = all_friends.exclude(pk=c.pk)			
 			context['users'] = all_friends
 		return context
 
