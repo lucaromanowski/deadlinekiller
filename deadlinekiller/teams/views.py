@@ -22,6 +22,14 @@ class TeamListView(LoginRequiredMixin, ListView):
 	def get_queryset(self):
 		return Team.objects.filter(creator=self.request.user) 
 
+	def get_context_data(self, *args, **kwargs):
+		context = super(TeamListView, self).get_context_data()
+		# Get all teams that user.profile is a member of
+		teams_of_user = Team.objects.filter(profile=self.request.user.profile)
+		# Put teams of user into a context
+		context['teams_of_user'] = teams_of_user
+		return context
+
 
 class TeamCreateView(LoginRequiredMixin, CreateView):
 	form_class = TeamCreationForm
@@ -140,6 +148,9 @@ class AddToTheTeamView(LoginRequiredMixin, View):
 			team.profile_set.remove(profile)
 		
 		return redirect('teams:team_list')
+
+
+
 
 
 

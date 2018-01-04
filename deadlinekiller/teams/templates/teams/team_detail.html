@@ -23,7 +23,10 @@
 					<p>All team members here</p>
 					<ul>
 						{% for member in team_members %}
-							<li>{{ member.user.username }} {% include 'teams/remove_from_team.html' with team_pk=team.pk profile_pk=member.pk %}</li>
+							<li>{{ member.user.username }} 
+								{% if request.user == team.creator or request.user == member.user %}
+									{% include 'teams/remove_from_team.html' with team_pk=team.pk profile_pk=member.pk %}</li>
+								{% endif %}
 						{% endfor %}
 					</ul>
 				{% else %}
