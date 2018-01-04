@@ -8,7 +8,7 @@
 	<div class="row">
 		<div class="col-12">
 			<h2>Team: {{ team.name }}</h2>
-			<p><small>Boss (creator): {{ team.creator }}</small></p>
+			<p><small>Boss (creator): <a class="badge badge-primary" href="{{ team.creator.profile.get_absolute_url }}">{{ team.creator }}</a></small></p>
 		</div>
 		
 	</div>
@@ -18,13 +18,18 @@
 			
 
 			<div class="col-6">
-				<h3>Members:</h3>
-				<p>All team members here</p>
-				<ul>
-					{% for member in team_members %}
-						<li>{{ member.user.username }} {% include 'teams/remove_from_team.html' with team_pk=team.pk profile_pk=member.pk %}</li>
-					{% endfor %}
-				</ul>
+				{% if team_members %}
+					<h3>Members:</h3>
+					<p>All team members here</p>
+					<ul>
+						{% for member in team_members %}
+							<li>{{ member.user.username }} {% include 'teams/remove_from_team.html' with team_pk=team.pk profile_pk=member.pk %}</li>
+						{% endfor %}
+					</ul>
+				{% else %}
+					<h3>There is nobody in this team</h3>
+					<p>Add some friends to this team and work together!</p>
+				{% endif %}
 			</div>
 			
 
