@@ -5,12 +5,30 @@
 
 
 {% block content %}
-	<h1>Create new team</h1>
-	<p>Fill the form below to create new team.</p>
-	<form action="" method="post">
-		{{ form|crispy }}
-		{% csrf_token %}
-		<input type="submit" value="Create new team">
-	</form>
+	<div class="row">
+
+
+		<div class="col-4"> 
+			<h1>Create new team</h1>
+			<form action="" method="post">
+				{{ form|crispy }}
+				{% csrf_token %}
+				<input type="submit" value="Create new team">
+			</form>
+		</div>
+
+
+		<div class="col-2"><!-- empty div, free space--></div>
+
+
+		<div class="col-6">
+			<h2>Fill the form and manage!</h2>
+			<p>Teams help to manage your tasks and deadlines.</p>
+		</div>
+		
+
+	</div>
+
+	
 
 {% endblock %}

@@ -4,12 +4,87 @@
 
 {% block content%}
 
-	<h2>Team: {{ team.name }}</h2>
-	<p><small>Boss (creator): {{ team.creator }}</small></p>
-	<h3>Members:</h3>
+
+	<div class="row">
+		<div class="col-12">
+			<h2>Team: {{ team.name }}</h2>
+			<p><small>Boss (creator): <a class="badge badge-primary" href="{{ team.creator.profile.get_absolute_url }}">{{ team.creator }}</a></small></p>
+		</div>
+		
+	</div>
+
+
+	<div class="row">
+			
+
+			<div class="col-6">
+				{% if team_members %}
+					<h3>Members:</h3>
+					<p>All team members here</p>
+					<ul>
+						{% for member in team_members %}
+							<li>{{ member.user.username }} 
+								{% if request.user == team.creator or request.user == member.user %}
+									{% include 'teams/remove_from_team.html' with team_pk=team.pk profile_pk=member.pk %}</li>
+								{% endif %}
+						{% endfor %}
+					</ul>
+				{% else %}
+					<h3>There is nobody in this team</h3>
+					<p>Add some friends to this team and work together!</p>
+				{% endif %}
+			</div>
+			
+
+			<div class="col-6">
+					<form action="" method="get">
+						<p>Search for new team members</p>
+						<input type="text" name='q' >
+						{% csrf_token %}
+						<input type="submit" value="Search" class="btn btn-primary">
+					</form>
+			</div>
+
+
+	</div>
+
 	<hr/>
-	<p>Back to <a href="{% url 'teams:team_list' %}">teams</a>.</p>
+		
+	<div class="row">
+		
+
+		<div class="col-12">
+			<h3>Choose a new team member from your friends</h3>
+			{% if users %}
+				<ul>
+				{% for u in users %}
+					<li>{{u}} | {% include 'teams/add_to_team.html' with team_pk=team.pk con_pk=u.pk %}</li>
+				{% endfor %}
+				</ul>
+			{% else %}
+				<p>no users</p>
+			{% endif %}	
+		</div>
+
+
+	</div>
+
 	<hr/>
-	<p><a href="{% url 'teams:team_delete' team.pk team.slug %}">Delete</a> this Team.</p>
+		
+	<div class="row">
+		
+
+		<div class="col-6">
+			<p><a class="badge badge-danger" href="{% url 'teams:team_delete' team.pk team.slug %}">Delete</a> this Team.</p>
+		</div>
+
+
+		<div class="col-6">
+			<p>Back to <a class="badge badge-primary" href="{% url 'teams:team_list' %}">teams</a>.</p>
+		</div>
+
+
+	</div>
+	
 
 {% endblock %}

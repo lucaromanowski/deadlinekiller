@@ -5,18 +5,64 @@
 
 
 {% block content %}
-	<h1>Teams list</h1>
-	{% if teams %}
-		<p>Your teams:</p>
-		<ul>
-	{% for team in teams %}
-		<li><a href="{% url 'teams:team_detail' team.pk team.slug %}">{{ team.name }}</a></li>
-	{% endfor %}
-	</ul>
-	<p><a href="{% url 'teams:team_create' %}">Create</a> new team.</p>
-	
-	{% else %}
-		<h2>Need a team? Create one!</h2>
-		<p>You are not a member of any team. <a href="#">Join</a> the existing one or <a href="{% url 'teams:team_create' %}">create</a> yours.</p>
-	{% endif %}
+	<div class="row">
+
+
+			<div class="col-12">
+				<h1>Teams list</h1>
+			</div>
+			
+
+
+	</div>
+
+
+	<div class="row">
+			
+
+			<div class="col-2 offset-10">
+				<p><a href="{% url 'teams:team_create' %}" class="badge badge-info">Create</a> new team.</p>
+			</div>
+
+
+	</div>
+
+
+	<div class="row">
+
+
+		<div class="col-6">
+			{% if teams %}
+				<h2>You have {% if teams.count > 1 %}<span class="badge badge-pill badge-primary">{{ teams.count }}</span> teams:{% else %}<span class="badge badge-pill badge-primary">{{ teams.count }}</span> team:{% endif %}</h2>
+				<div class="list-group">
+					{% for team in teams %}
+						<a href="{% url 'teams:team_detail' team.pk team.slug %}" class="list-group-item list-group-item-action">{{ team.name }}</a></li>
+					{% endfor %}
+					</ul>
+				</div>
+			{% else %}
+				<h2>Need a team? Create one!</h2>
+				<p>You are not a member of any team. <a href="#">Join</a> the existing one or <a href="{% url 'teams:team_create' %}">create</a> yours.</p>
+			{% endif %}
+		</div>
+
+
+		<div class="col-6">
+			{% if teams_of_user %}
+				<h2>You are a member of {% if teams_of_user.count > 1 %}<span class="badge badge-pill badge-primary">{{ teams_of_user.count }}</span> teams{% else %}<span class="badge badge-pill badge-primary">{{ teams_of_user.count }}</span> team:{% endif %}</h2>
+				<div class="list-group">
+					{% for team in teams_of_user %}
+						<a href="{{ team.get_absolute_url }}" class="list-group-item list-group-item-action">{{ team }}</a>
+					{% endfor %}
+				</div>
+			{% else %}
+				<p>You are not member of any team yet.</p>
+			{% endif %}
+
+		</div>
+
+
+	</div>
+
+
 {% endblock %}
