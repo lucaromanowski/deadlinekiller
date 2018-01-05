@@ -3,10 +3,8 @@ from django.conf import settings
 from django.db import models
 from django.urls import reverse
 
-
-
-
-
+from account.models import Profile
+from teams.models import Team
 
 
 
@@ -38,6 +36,10 @@ class Deadline(models.Model):
 	created = models.DateTimeField(auto_now_add=True)
 	updated = models.DateTimeField(auto_now=True)
 	priority = models.CharField(max_length=80, choices=PRIORITIES, default='3')	
+
+	# M2M
+	team = models.ManyToManyField(Team, blank=True, related_name='teams')
+	participant = models.ManyToManyField(Profile, blank=True, related_name='participants')
 
 
 	def __str__(self):
