@@ -7,18 +7,35 @@
 
 {% block content %}
 
-	<h1>Deadline: {{ deadline.name }}</h1>
-	<p>Priority: {{ deadline.priority }}</p>
-	<p>{{ deadline.description }}</p>
-	<p>Created: {{ deadline.created }}</p>
-	<p>Updated: {{ deadline.updated }}</p>
+
+	<div class="row">
+		
+		<div class="col-6">
+			<h2>Deadline: {{ deadline.name }}</h2>
+			<h2><span class="badge badge-warning">{{ deadline.deadline_date }}</span></h2>
+			<p>Priority: {{ deadline.priority }}</p>
+			<p>{{ deadline.description }}</p>
+			<p>Created: {{ deadline.created }}</p>
+			<p>Updated: {{ deadline.updated }}</p>
+		</div>
+		
+
+		<div class="col-3">
+			<h3>Actions: </h3>
+			<p><a href="{% url 'deadlines:deadline_update' deadline.pk deadline.slug %}">Edit</a> this deadline.</p>
+			<p><a href="{% url 'deadlines:deadline_delete' deadline.pk deadline.slug %}">Delete</a> this deadline.</p>
+			<p>All deadlines <a href="{% url 'deadlines:deadline_list' %}">here</a>.</p>
+		</div>
+			
+
+		<div class="col-3">
+			<h3>Manage:</h3>
+			<p><a href="#">Add team to this deadline</a></p>
+			<p><a href="#">Add participant to this deadline</a></p>
+		</div>
 
 
+	</div>
 
 
-
-	<br/>
-	<p><a href="{% url 'deadlines:deadline_update' deadline.pk deadline.slug %}">Edit</a> this deadline.</p>
-	<p><a href="{% url 'deadlines:deadline_delete' deadline.pk deadline.slug %}">Delete</a> this deadline.</p>
-	<p>All deadlines <a href="{% url 'deadlines:deadline_list' %}">here</a>.</p>
 {% endblock %}
