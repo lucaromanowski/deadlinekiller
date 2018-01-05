@@ -15,6 +15,19 @@
 
 
 	</div>
+
+
+	<div class="row">
+			
+
+			<div class="col-2 offset-10">
+				<p><a href="{% url 'teams:team_create' %}" class="badge badge-info">Create</a> new team.</p>
+			</div>
+
+
+	</div>
+
+
 	<div class="row">
 
 
@@ -26,7 +39,6 @@
 						<a href="{% url 'teams:team_detail' team.pk team.slug %}" class="list-group-item list-group-item-action">{{ team.name }}</a></li>
 					{% endfor %}
 					</ul>
-					<p><a href="{% url 'teams:team_create' %}">Create</a> new team.</p>
 				</div>
 			{% else %}
 				<h2>Need a team? Create one!</h2>
