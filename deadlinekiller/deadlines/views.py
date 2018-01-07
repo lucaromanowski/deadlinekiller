@@ -7,6 +7,8 @@ from django.utils.text import slugify
 
 from .forms import DeadlineForm
 from .models import Deadline
+from account.models import Profile
+from teams.models import Team
 
 
 @login_required
@@ -30,8 +32,19 @@ def deadline_list(request):
 
 @login_required
 def deadline_detail(request, pk, slug):
+	# Get deadline
 	deadline = get_object_or_404(Deadline, pk=pk, slug=slug)
-	return render(request, 'deadlines/deadline_detail.html', {'deadline' : deadline})
+	# Get teams user created
+	user_teams = Team.objects.filter(creator=request.user) 
+	print('user teams: ', str(user_teams))
+	# Get teams user (profile) is participant of
+	teams_participant = request.user.profile.team.all()
+	all_user_teams = user_teams | teams_participant
+	all_user_teams = all_user_teams.distinct()
+	print('teams participant', str(teams_participant))
+
+	return render(request, 'deadlines/deadline_detail.html', {'deadline' : deadline,
+															  'all_user_teams' : all_user_teams})
 
 
 @login_required

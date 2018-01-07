@@ -30,7 +30,20 @@
 
 		<div class="col-3">
 			<h3>Manage:</h3>
-			<p><a href="#">Add team to this deadline</a></p>
+			<p>Add team to this deadline.</p>
+				{% for team in all_user_teams %}
+					<div class="card" style="width: 18rem;">
+						 <div class="card-body">
+							{{ team }}
+							<form action="" method="post">
+								<input type="hidden" name="team_pk" value="{{ team.pk }}">
+								<input type="hidden" name="deadlinde_pk" value="{{ deadline.pk }}">
+								{% csrf_token %}
+								<input type="submit" value="Add to a deadline" class="btn btn-primary">
+							</form>
+						</div>
+					</div>
+				{% endfor %}
 			<p><a href="#">Add participant to this deadline</a></p>
 		</div>
 
