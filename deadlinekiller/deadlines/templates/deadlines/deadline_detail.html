@@ -30,21 +30,25 @@
 
 		<div class="col-3">
 			<h3>Manage:</h3>
-			<p>Add team to this deadline.</p>
-				{% for team in all_user_teams %}
-					<div class="card" style="width: 18rem;">
-						 <div class="card-body">
-							{{ team }}
-							<form action="" method="post">
-								<input type="hidden" name="team_pk" value="{{ team.pk }}">
-								<input type="hidden" name="deadlinde_pk" value="{{ deadline.pk }}">
-								{% csrf_token %}
-								<input type="submit" value="Add to a deadline" class="btn btn-primary">
-							</form>
+			{% if all_user_teams %}
+				<p>Add team to this deadline.</p>
+					{% for team in all_user_teams %}
+						<div class="card" style="width: 18rem;">
+							 <div class="card-body">
+								{{ team }}
+								<form action="" method="post">
+									<input type="hidden" name="team_pk" value="{{ team.pk }}">
+									<input type="hidden" name="deadline_pk" value="{{ deadline.pk }}">
+									{% csrf_token %}
+									<input type="submit" value="Add to a deadline" class="btn btn-primary">
+								</form>
+							</div>
 						</div>
-					</div>
-				{% endfor %}
-			<p><a href="#">Add participant to this deadline</a></p>
+					{% endfor %}
+			{% else %}
+				<p>All your teams are in this deadline.</p>
+			{% endif %}
+				<p><a href="#">Add participant to this deadline</a></p>			
 		</div>
 
 
@@ -55,8 +59,12 @@
 		
 
 		<div class="col-6">
-			<h3>Teams:</h3>
-			<p>list of all deadline teams</p>
+			<h3>Teams of this deadline:</h3>
+			<ul>
+				{% for team in deadline.team.all %}
+					<li>{{ team }} | <a href="#">remove</a></li>
+				{% endfor %}
+			</ul>
 		</div>
 
 
