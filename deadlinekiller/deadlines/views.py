@@ -34,26 +34,34 @@ def deadline_list(request):
 def deadline_detail(request, pk, slug):
 	# Get deadline
 	deadline = get_object_or_404(Deadline, pk=pk, slug=slug)
+
+	# Take form data
+	team_pk = request.POST.get('team_pk')
+	operation = request.POST.get('operation')
+
+	# Add new team to this deadline
+	if team_pk and operation == 'add':
+		team_to_add = get_object_or_404(Team, pk=team_pk)
+		deadline.team.add(team_to_add)
+	# Remove team from deadline
+	elif team_pk and operation == 'remove':
+		team_to_remove = get_object_or_404(Team, pk=team_pk)
+		deadline.team.remove(team_to_remove)
 	
 	# Get teams user created
 	user_teams = Team.objects.filter(creator=request.user) 
-	print('user teams: ', str(user_teams))
+
 	# Get teams user (profile) is participant of
 	teams_participant = request.user.profile.team.all()
 	all_user_teams = user_teams | teams_participant
 	all_user_teams = all_user_teams.distinct()
+
 	# Remove teams that are already in this deadline
 	for team in all_user_teams:
 		if team in deadline.team.all():
 			all_user_teams = all_user_teams.exclude(pk=team.pk)
 
-	# Take form data
-	team_pk = request.POST.get('team_pk')
 
-	# Add new team to this deadline
-	if team_pk:
-		team_to_add = get_object_or_404(Team, pk=team_pk)
-		deadline.team.add(team_to_add)
 
 	return render(request, 'deadlines/deadline_detail.html', {'deadline' : deadline,
 															  'all_user_teams' : all_user_teams})

@@ -37,6 +37,7 @@
 							 <div class="card-body">
 								{{ team }}
 								<form action="" method="post">
+									<input type="hidden" name="operation" value="add">
 									<input type="hidden" name="team_pk" value="{{ team.pk }}">
 									<input type="hidden" name="deadline_pk" value="{{ deadline.pk }}">
 									{% csrf_token %}
@@ -62,7 +63,15 @@
 			<h3>Teams of this deadline:</h3>
 			<ul>
 				{% for team in deadline.team.all %}
-					<li>{{ team }} | <a href="#">remove</a></li>
+					<li>
+						{{ team }} 
+						<form action="" method="post" style="display: inline-block;">
+							<input type="hidden" name="operation" value="remove">
+							<input type="hidden" name="team_pk" value="{{ team.pk }}">
+							{% csrf_token %}
+							<input type="submit" value="remove" class="btn btn-danger">
+						</form>
+					</li>
 				{% endfor %}
 			</ul>
 		</div>
