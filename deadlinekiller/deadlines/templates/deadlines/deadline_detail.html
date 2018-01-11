@@ -35,7 +35,7 @@
 					{% for team in all_user_teams %}
 						<div class="card" style="width: 18rem;">
 							 <div class="card-body">
-								{{ team }}
+							 	<a href="{{ team.get_absolute_url }}">{{ team }}</a>
 								<form action="" method="post">
 									<input type="hidden" name="operation" value="add">
 									<input type="hidden" name="team_pk" value="{{ team.pk }}">
@@ -64,7 +64,7 @@
 			<ul>
 				{% for team in deadline.team.all %}
 					<li>
-						{{ team }} 
+						<a href="{{ team.get_absolute_url }}"> {{ team }}</a>
 						<form action="" method="post" style="display: inline-block;">
 							<input type="hidden" name="operation" value="remove">
 							<input type="hidden" name="team_pk" value="{{ team.pk }}">
