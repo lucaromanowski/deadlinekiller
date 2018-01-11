@@ -6,19 +6,70 @@
 
 
 {% block content %}
-	<p><small>You have {{ deadlines_total }} active deadlines now.</small></p>
-	<h1>All your deadlines</h1>
-	<ul>
-		{% for deadline in deadlines %}
-			<li>
-				<a href="{{ deadline.get_absolute_url }}">{{ deadline.name }}</a> | created: {{ deadline.created }}
-				<p>Priority: {{ deadline.priority }}</p>
-			</li>
-		{% endfor %}
-	</ul>
-	<h2>New deadline?</h2>
-	<p><a href="{% url 'deadlines:deadline_create' %}">Create</a> new deadline.</p>
+	<div class="row">
+		
 
-	<!-- pagination -->
-	{% include 'pagination.html' with page=deadlines %}
+			<div class="col-8">
+				<h1>All your deadlines</h1>
+				<p><small>You have {{ deadlines_total }} active deadlines now.</small></p>
+				
+					{% for deadline in deadlines %}
+								<div class="{% if deadline.priority == '1' %}
+											card text-white bg-danger mb-3
+										{% elif deadline.priority == '2' %} 
+											card text-white bg-warning mb-3
+										{% elif deadline.priority == '3' %} 
+											card text-white bg-dark mb-3
+										{% elif deadline.priority == '4' %} 
+											card text-white bg-secondary mb-3
+										{% else %}
+											card bg-light mb-3
+										{% endif %}" 
+										style="max-width: 18rem;">
+										
+							  	<div class="card-header">
+							  		{{ deadline.deadline_date }}
+							  	</div>
+							  		<div class="card-body">
+							    		<h5 class="card-title">
+
+							    			{{ deadline.name }}
+							    		</h5>
+							    		<p class="card-text">
+							    			{{ deadline.description|truncatewords:10 }}
+							    			<br/>
+							    			<a href="{{ deadline.get_absolute_url }}" class="card-link">Details here.</a>
+							    		</p>
+							  		</div>
+							  	</div>
+
+
+
+						 <!--
+						<li>
+							<a href="{{ deadline.get_absolute_url }}">{{ deadline.name }}</a> | created: {{ deadline.created }}
+							<p>Priority: {{ deadline.priority }}</p>
+						</li> -->
+					{% empty %}
+						<h1>Sorry, you don't have deadlines yet</h1>
+					{% endfor %}
+				
+			</div>
+
+
+			<div class="col-4">
+				<h2>New deadline?</h2>
+				<p><a href="{% url 'deadlines:deadline_create' %}">Create</a> new deadline.</p>
+			</div>
+	</div>
+
+
+	<div class="row">
+		<div class="col-12">
+			<!-- pagination -->
+			{% include 'pagination.html' with page=deadlines %}
+		</div>
+	</div>
+
+
 {% endblock %}
